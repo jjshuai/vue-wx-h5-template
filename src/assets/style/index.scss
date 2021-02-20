@@ -1,0 +1,38 @@
+
+
+@import './variable.scss'; // 引入变量声明
+@import './mixin.scss'; // mixin
+@import './border.scss'; // border 1px
+@import './animal.scss';  // 动画
+@import './sprites.scss';  // 雪碧图
+
+
+
+// 去掉点击高亮
+div ,span ,a, button{
+    -webkit-tap-highlight-color: transparent;
+}
+
+// 超出滚动 去掉滚动条 -Y
+.scroll-y-no-bar{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+    }
+}
+
+// 超出滚动 去掉滚动条 -X
+.scroll-x-no-bar{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    // -webkit-overflow-scrolling:touch;  // 
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+    }
+}
+
