@@ -127,7 +127,7 @@ module.exports = {
         splitChunks: {
           chunks: 'all',
           cacheGroups: {
-          // cacheGroups 下可以可以配置多个组，每个组根据test设置条件，符合test条件的模块
+            // cacheGroups 下可以可以配置多个组，每个组根据test设置条件，符合test条件的模块
             commons: {
               name: 'chunk-commons',
               test: resolve('src/components'),
@@ -154,7 +154,8 @@ module.exports = {
         hints: 'warning',
         maxEntrypointSize: 50000000, // 入口起点的最大体积
         maxAssetSize: 30000000, // 生成文件的最大体积
-        assetFilter: function(assetFilename) { // 只给出 js 文件的性能提示
+        assetFilter: function(assetFilename) {
+          // 只给出 js 文件的性能提示
           return assetFilename.endsWith('.js')
         }
       }

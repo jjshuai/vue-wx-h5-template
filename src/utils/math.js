@@ -1,4 +1,3 @@
-
 /**
  *
  * @param {*} arg1
@@ -10,7 +9,8 @@ export function mathDiv(arg1, arg2) {
   arg2 = parseFloat(arg2)
   var t1 = 0
   var t2 = 0
-  var r1; var r2
+  var r1
+  var r2
   try {
     t1 = arg1.toString().split('.')[1].length
   } catch {
@@ -71,7 +71,7 @@ export function mathSub(arg1, arg2) {
   }
   m = Math.pow(10, Math.max(r1, r2))
   // 动态控制精度长度
-  n = (r1 >= r2) ? r1 : r2
+  n = r1 >= r2 ? r1 : r2
   return ((mathMul(arg1, m) - mathMul(arg2, m)) / m).toFixed(n)
 }
 // 乘法函数，用来得到精确的乘法结果
@@ -100,5 +100,5 @@ export function mathMul(arg1, arg2) {
   } catch {
     //
   }
-  return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
+  return (Number(s1.replace('.', '')) * Number(s2.replace('.', ''))) / Math.pow(10, m)
 }

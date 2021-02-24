@@ -2,14 +2,14 @@
 // 清除浮动
 @mixin clearfix {
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
 }
- 
+
 // 多行隐藏
-@mixin textoverflow($clamp:1) {
+@mixin textoverflow($clamp: 1) {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21,7 +21,7 @@
 }
 
 //flex box
-@mixin flexbox($jc:space-between, $ai:center, $fd:row, $fw:nowrap) {
+@mixin flexbox($jc: space-between, $ai: center, $fd: row, $fw: nowrap) {
   display: flex;
   display: -webkit-flex;
   flex: 1;
@@ -34,4 +34,3 @@
   flex-wrap: $fw;
   -webkit-flex-wrap: $fw;
 }
-

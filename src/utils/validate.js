@@ -1,4 +1,3 @@
-
 // 判断是不是手机号
 export function isMobile(str) {
   return /^1[0-9]{10}$/.test(str)
@@ -20,7 +19,6 @@ export function isObject(param) {
 }
 
 export default {
-
   // 判断是不是字符串
   isString(param) {
     return Object.prototype.toString.call(param) === '[object String]'
@@ -110,7 +108,8 @@ export default {
    * @return {Boolean}
    */
   isIdCard(str) {
-    return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(str)
+    return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(
+      str
+    )
   }
-
 }

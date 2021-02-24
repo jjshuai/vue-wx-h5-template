@@ -6,7 +6,6 @@ const getDefaultState = () => {
     thirdType: null, // 是否是第三方平台类型 wx ali
     appId: '', // 如果是第三方平台 设置 appid
     appType: null // 是否是app类型 ios android
-
   }
 }
 const state = getDefaultState()
@@ -18,7 +17,6 @@ const mutations = {
     state.appType = appType
     state.appId = appId
   }
-
 }
 
 const actions = {
@@ -41,7 +39,6 @@ const actions = {
     // 初始化 浏览器、系统平台类型
     commit('INIT_SYSTEM_TYPE', { systemType, thirdType, appType, appId })
   }
-
 }
 
 export default {
@@ -50,4 +47,3 @@ export default {
   mutations,
   actions
 }
-

@@ -4,7 +4,6 @@ Vue.use(Router)
 import Home from '@/views/home'
 
 export const routes = [
-
   {
     path: '/',
     redirect: '/home'
@@ -39,16 +38,16 @@ export const routes = [
       title: '错误'
     }
   }
-
 ]
 
-const createRouter = () => new Router({
-  mode: 'history',
-  scrollBehavior: () => ({
-    y: 0
-  }),
-  routes: routes
-})
+const createRouter = () =>
+  new Router({
+    mode: 'history',
+    scrollBehavior: () => ({
+      y: 0
+    }),
+    routes: routes
+  })
 
 const router = createRouter()
 export function resetRouter() {

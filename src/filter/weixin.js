@@ -13,13 +13,12 @@ function doFilter() {
 
       if (isiOS) {
         const url = process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath // ios 落地页问题
-        store.dispatch('wxSign/setOriginUrl', url)
-          .then(v => {
-            // wx-js-sdk初始化
-            wxUtils.init({
-              apiList: to.meta.wx.jsApiList
-            })
+        store.dispatch('wxSign/setOriginUrl', url).then(v => {
+          // wx-js-sdk初始化
+          wxUtils.init({
+            apiList: to.meta.wx.jsApiList
           })
+        })
       } else {
         // wx-js-sdk初始化
         wxUtils.init({

@@ -22,13 +22,12 @@ const mutations = {
   SET_WX_CODE(state, wxCode) {
     state.wxCode = wxCode
   },
-  REMOVE_TOKEN: (state) => {
+  REMOVE_TOKEN: state => {
     state.token = ''
   },
-  REMOVE_USER_INFO: (state) => {
+  REMOVE_USER_INFO: state => {
     state.userInfo = null
   }
-
 }
 
 const actions = {
@@ -44,14 +43,16 @@ const actions = {
   // 获取用户信息
   getUserInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getUserInfo().then(response => {
-        // 保存用户信息
-        commit('SET_USER_INFO', response)
-        authUtils.setUserInfo(response)
-        resolve(response)
-      }).catch(error => {
-        reject(error)
-      })
+      getUserInfo()
+        .then(response => {
+          // 保存用户信息
+          commit('SET_USER_INFO', response)
+          authUtils.setUserInfo(response)
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
 
@@ -80,7 +81,6 @@ const actions = {
     commit('SET_WX_CODE', wxCode)
     authUtils.setWxCode(wxCode)
   }
-
 }
 
 export default {
@@ -89,4 +89,3 @@ export default {
   mutations,
   actions
 }
-

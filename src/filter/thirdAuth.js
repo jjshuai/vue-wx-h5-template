@@ -27,7 +27,8 @@ function doFilter() {
           return next()
         } else {
           // 无用户信息 -> 获取
-          store.dispatch('user/getUserInfo')
+          store
+            .dispatch('user/getUserInfo')
             .then(() => {
               return next()
             })
@@ -37,7 +38,7 @@ function doFilter() {
         }
       } else {
         // 已经拿到code(old_third_redirect_code 防止失效code仍在url中,需重新拿到third_redirect_code)
-        if (third_redirect_code && (third_redirect_code !== old_third_redirect_code)) {
+        if (third_redirect_code && third_redirect_code !== old_third_redirect_code) {
           return next()
         }
 
@@ -45,16 +46,16 @@ function doFilter() {
         const redirect_url = getThirdUrl(to)
         window.location.href = redirect_url
       }
-    } else
-    // 2.2 浏览器环境
-    if (!thirdType) {
+    } else if (!thirdType) {
+      // 2.2 浏览器环境
       if (hasToken) {
         if (hasUserInfo) {
           // 存在用户信息
           return next()
         } else {
           // 无用户信息 -> 获取
-          store.dispatch('user/getUserInfo')
+          store
+            .dispatch('user/getUserInfo')
             .then(() => {
               return next()
             })
@@ -82,16 +83,40 @@ function getThirdUrl(to) {
   // wx
   if (store.getters.thirdType === 'wx') {
     if (to.meta.thirdAuth === 'base') {
-      redirect_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + store.getters.appId + '&redirect_uri=' + encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) + '&response_type=code&scope=snsapi_base&state=' + process.env.VUE_APP_STATE + '#wechat_redirect'
+      redirect_url =
+        'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+        store.getters.appId +
+        '&redirect_uri=' +
+        encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) +
+        '&response_type=code&scope=snsapi_base&state=' +
+        process.env.VUE_APP_STATE +
+        '#wechat_redirect'
     } else if (to.meta.thirdAuth === 'userinfo') {
-      redirect_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + store.getters.appId + '&redirect_uri=' + encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) + '&response_type=code&scope=snsapi_userinfo&state=' + process.env.VUE_APP_STATE + '#wechat_redirect'
+      redirect_url =
+        'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+        store.getters.appId +
+        '&redirect_uri=' +
+        encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) +
+        '&response_type=code&scope=snsapi_userinfo&state=' +
+        process.env.VUE_APP_STATE +
+        '#wechat_redirect'
     }
   } else if (store.getters.thirdType === 'ali') {
     // ali
     if (to.meta.thirdAuth === 'base') {
-      redirect_url = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=' + store.getters.appId + '&auth_skip=false&scope=auth_base&redirect_uri=' + encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) + '&state=1'
+      redirect_url =
+        'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=' +
+        store.getters.appId +
+        '&auth_skip=false&scope=auth_base&redirect_uri=' +
+        encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) +
+        '&state=1'
     } else if (to.meta.thirdAuth === 'userinfo') {
-      redirect_url = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=' + store.getters.appId + '&auth_skip=false&scope=auth_userinfo&redirect_uri=' + encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) + '&state=1'
+      redirect_url =
+        'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=' +
+        store.getters.appId +
+        '&auth_skip=false&scope=auth_userinfo&redirect_uri=' +
+        encodeURIComponent(process.env.VUE_APP_BASEURL + process.env.VUE_APP_BASE_PUBLIC_PATH + to.fullPath) +
+        '&state=1'
     }
   }
   return redirect_url

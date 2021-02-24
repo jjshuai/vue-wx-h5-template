@@ -1,4 +1,3 @@
-
 import common from './common'
 import thirdAuth from './thirdAuth'
 import thirdAuthCB from './thirdAuthCB'

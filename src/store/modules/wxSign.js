@@ -7,11 +7,7 @@ const state = () => ({
 
 // mutations
 const mutations = {
-  SET_SIGN_INFO(state, {
-    timestamp,
-    nonceStr,
-    signature
-  }) {
+  SET_SIGN_INFO(state, { timestamp, nonceStr, signature }) {
     state.timestamp = timestamp
     state.nonceStr = nonceStr
     state.signature = signature

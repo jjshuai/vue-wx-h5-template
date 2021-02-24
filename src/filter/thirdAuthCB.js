@@ -21,7 +21,7 @@ function doFilter() {
     }
 
     // 第三方环境并且 带有code
-    if (!hasToken && thirdType && to.meta.thirdAuth && third_redirect_code && (third_redirect_code !== old_third_redirect_code)) {
+    if (!hasToken && thirdType && to.meta.thirdAuth && third_redirect_code && third_redirect_code !== old_third_redirect_code) {
       // 拿着code获取token
       code2AccessToken({
         code: third_redirect_code,

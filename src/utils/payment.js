@@ -1,4 +1,3 @@
-
 import store from '@/store'
 import wxUtils from './weixin'
 
@@ -50,5 +49,4 @@ function handlePayAli(data) {
 export default {
   // 支付
   payMent
-
 }

@@ -9,13 +9,12 @@ const state = {
 }
 
 const mutations = {
-  SHOW_MASK: (state) => {
+  SHOW_MASK: state => {
     state.showGlobalMask = true
   },
-  CLOSE_MASK: (state) => {
+  CLOSE_MASK: state => {
     state.showGlobalMask = false
   }
-
 }
 
 const actions = {
@@ -26,7 +25,6 @@ const actions = {
   closeMask({ commit }) {
     commit('CLOSE_MASK')
   }
-
 }
 
 export default {

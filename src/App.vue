@@ -38,19 +38,18 @@ export default {
     }
   }
 }
-
 </script>
 <style lang="scss">
-  body{
-      -webkit-tap-highlight-color: rgba($color: #000000, $alpha: 0); // 点击高亮
-      -webkit-text-size-adjust: 100%!important; // ios使用-webkit-text-size-adjust 禁止调整字体大小
-  }
-  html,
-  body,
-  #app {
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: auto;
-  }
+body {
+  -webkit-tap-highlight-color: rgba($color: #000000, $alpha: 0); // 点击高亮
+  -webkit-text-size-adjust: 100% !important; // ios使用-webkit-text-size-adjust 禁止调整字体大小
+}
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+}
 </style>

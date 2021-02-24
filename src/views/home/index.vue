@@ -11,7 +11,7 @@
       <i class="ico ico-icon4" />
       <i class="ico ico-icon5" />
     </div>
-    <div v-if="false" class="test" :dsafsdfdasfas="12" :dsafsdf123dasfas="12" :dsaf213sdfdasfas="12" :dsafsdfda213sfas="12" :dsafsdfdas1fas="12" :dsafsd2fdasfas="12" @click="go" :dsaf321sdfdasfas="12" :dsafsd1fdasfas="12" :dsafsdfda1sfas="12">
+    <div v-if="false" class="test">
       dasf
     </div>
   </div>
@@ -21,7 +21,10 @@
 export default {
   name: 'Home',
   data() {
-    return {}
+    return {
+      a: '1',
+      b: '21'
+    }
   },
   computed: {},
   created() {

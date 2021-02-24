@@ -10,9 +10,7 @@
 <script>
 export default {
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
     goHome() {
@@ -25,9 +23,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .go-home {
-    text-align: center;
-    color: green;
-    cursor: pointer
-  }
+.go-home {
+  text-align: center;
+  color: green;
+  cursor: pointer;
+}
 </style>

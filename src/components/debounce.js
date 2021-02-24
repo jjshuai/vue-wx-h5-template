@@ -8,7 +8,8 @@ const debounce = (func, time, isDebounce, ctx) => {
         func.apply(ctx, params)
       }, time)
     }
-  } else { // 节流函数
+  } else {
+    // 节流函数
     rtn = (...params) => {
       const now = new Date().getTime()
       if (now - lastCall < time && lastCall) return
@@ -31,7 +32,8 @@ export default {
       type: String,
       default: 'click'
     },
-    isDebounce: { // true防抖 false节流
+    isDebounce: {
+      // true防抖 false节流
       type: Boolean,
       default: true
     }
@@ -52,12 +54,7 @@ export default {
       } else if (target) {
         // 对子节点事件进行处理
         this.originMap[key] = target
-        this.debouncedMap[key] = debounce(
-          target,
-          this.time,
-          this.isDebounce,
-          vnode
-        )
+        this.debouncedMap[key] = debounce(target, this.time, this.isDebounce, vnode)
         vnode.data.on[key] = this.debouncedMap[key]
       }
     })

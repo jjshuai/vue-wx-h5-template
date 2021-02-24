@@ -1,49 +1,47 @@
 <template>
   <div v-show="showMask" class="components-wrap">
-    <div class="loadingio-spinner-eclipse-qcqjgsfzgzh"><div class="animate-whirling">
-      <div />
-    </div></div>
+    <div class="loadingio-spinner-eclipse-qcqjgsfzgzh">
+      <div class="animate-whirling">
+        <div />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    // msg: String
-  },
+  name: 'Name',
   data() {
     return {
-      show: true,
-      msg: ''
+      a: '1',
+      b: '21'
     }
   },
   computed: {
     showMask: {
-      get: function() {
+      get: function () {
         return this.$store.getters.mask
       },
-      set: function() {}
+      set: function () {}
     }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .components-wrap {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #ffffff;
-    z-index: 9999;
-    text-align: center;
-  }
+.components-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 9999;
+  text-align: center;
+}
 </style>
 <style type="text/css">
-
 .animate-whirling div {
   position: absolute;
   animation: animate-whirling 1s linear infinite;
@@ -73,5 +71,7 @@ export default {
   backface-visibility: hidden;
   transform-origin: 0 0; /* see note above */
 }
-.animate-whirling div { box-sizing: content-box; }
+.animate-whirling div {
+  box-sizing: content-box;
+}
 </style>

@@ -26,7 +26,7 @@ export default {
       const str = url.substr(1)
       const strs = str.split('&')
       for (let i = 0; i < strs.length; i++) {
-        theRequest[strs[i].split('=')[0]] = (strs[i].split('=')[1])
+        theRequest[strs[i].split('=')[0]] = strs[i].split('=')[1]
       }
     }
     return theRequest

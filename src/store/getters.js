@@ -10,10 +10,12 @@ const getters = {
   appId: state => state.system.appId, // 三方应用的appid
 
   // 用户
-  token: state => { // token - cookie 持久
+  token: state => {
+    // token - cookie 持久
     return state.user.token
   },
-  userInfo: state => { // 用户信息 - session 防刷新,关闭页面会被清除
+  userInfo: state => {
+    // 用户信息 - session 防刷新,关闭页面会被清除
     return state.user.userInfo
   }
 }

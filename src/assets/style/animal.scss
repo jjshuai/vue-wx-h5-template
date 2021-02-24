@@ -1,23 +1,23 @@
-
 // 淡入淡出
 .fade-enter,
-.fade-leave-to{
-    opacity: 0;
+.fade-leave-to {
+  opacity: 0;
 }
 
-.fade-enter-active,.v-leave-active{
-    transition: all 0.2s linear;
+.fade-enter-active,
+.v-leave-active {
+  transition: all 0.2s linear;
 }
 
 // 转圈
 @keyframes animate-whirling {
-    0% {
-        transform: rotate(0deg);
-    }
-    50% { 
-        transform: rotate(180deg); 
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

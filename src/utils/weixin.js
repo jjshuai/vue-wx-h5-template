@@ -22,14 +22,16 @@ function init(params) {
     // 获取验签参数
     return wxSign({
       uri: wxSignParams.signUrl
-    }).then((res) => {
-      wxSignParams.timestamp = res.timestamp
-      wxSignParams.nonceStr = res.nonce_str
-      wxSignParams.signature = res.signature
-      wxConfig(params)
-    }).catch(error => {
-      console.log('wxSign fail', error)
     })
+      .then(res => {
+        wxSignParams.timestamp = res.timestamp
+        wxSignParams.nonceStr = res.nonce_str
+        wxSignParams.signature = res.signature
+        wxConfig(params)
+      })
+      .catch(error => {
+        console.log('wxSign fail', error)
+      })
   }
 }
 
@@ -47,7 +49,7 @@ function wxConfig(params) {
     jsApiList: params.apiList
   }
   wx.config(configObj)
-  wx.error((res) => {
+  wx.error(res => {
     console.log('wx.config fail', res)
     if (wxSignParams.errorCount >= 0) {
       wxSignParams.errorCount = wxSignParams.errorCount - 1
@@ -62,7 +64,7 @@ function wxConfig(params) {
  * @param {*} params
  */
 function pay(params) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     wx.chooseWXPay({
       timestamp: params.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
       nonceStr: params.nonce_str, // 支付签名随机串，不长于 32 位
@@ -71,7 +73,7 @@ function pay(params) {
       paySign: params.pay_sign, // 支付签名
 
       success: function(res) {
-        resolve({ 'success': res })
+        resolve({ success: res })
       },
       cancel: function(res) {
         resolve('cancel', res)
@@ -114,12 +116,12 @@ function share(params) {
  * @param {*} params
  */
 function getLocation() {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     wx.ready(() => {
       wx.getLocation({
         type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
         success: function(res) {
-          resolve({ 'success': res })
+          resolve({ success: res })
           // var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
           // var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
           // var speed = res.speed; // 速度，以米/每秒计
@@ -138,7 +140,7 @@ function getLocation() {
  * @param {*} params
  */
 function openLocation(params) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     wx.ready(() => {
       wx.openLocation({
         latitude: Number(params.latitude), // 纬度，浮点数，范围为90 ~ -90
@@ -148,7 +150,7 @@ function openLocation(params) {
         scale: 14, // 地图缩放级别,整形值,范围从1~28。默认为最大
         infoUrl: params.infoUrl, // 在查看位置界面底部显示的超链接,可点击跳转
         success: function(res) {
-          resolve({ 'success': res })
+          resolve({ success: res })
         },
         fail: function(res) {
           console.log('openLocation fail', res)
@@ -170,5 +172,4 @@ export default {
   getLocation,
   // 微信内置地图查看位置接口
   openLocation
-
 }
