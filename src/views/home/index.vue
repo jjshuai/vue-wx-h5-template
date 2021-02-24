@@ -28,10 +28,15 @@ export default {
     let a = 1
 
     a += 1
-
+    // 这个备注
     const b = '123'
+    const c = {
+      a: '1',
+      b: 'b'
+    }
+    const d = { a: 1 }
 
-    console.log(a + b)
+    console.log(a + b, c, d)
   },
   methods: {}
 }

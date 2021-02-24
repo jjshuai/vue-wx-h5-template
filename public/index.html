@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title></title>
   </head>
 
@@ -11,44 +14,51 @@
     <div id="app"></div>
     <script>
       // 动态设置meta viewport 解决1px问题
-      (function() {
-        const metaEl = document.querySelector('meta[name="viewport"]');
-        let dpr = window.devicePixelRatio || 1;
-        dpr = dpr > 3 ? 3 : dpr;
-        const scale = 1 / dpr;
-        metaEl.setAttribute('content', 'width=device-width' + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
-      })();
-
+      ;(function() {
+        const metaEl = document.querySelector('meta[name="viewport"]')
+        let dpr = window.devicePixelRatio || 1
+        dpr = dpr > 3 ? 3 : dpr
+        const scale = 1 / dpr
+        metaEl.setAttribute(
+          'content',
+          'width=device-width' +
+            ',initial-scale=' +
+            scale +
+            ',maximum-scale=' +
+            scale +
+            ', minimum-scale=' +
+            scale +
+            ',user-scalable=no'
+        )
+      })()
 
       // 解决微信字体设置变大布局混乱
-      (function() {
-         // 安卓：
-        if (
-          typeof WeixinJSBridge == "object" &&
-          typeof WeixinJSBridge.invoke == "function"
-        ) {
-          handleFontSize();
+      ;(function() {
+        // 安卓：
+        if (typeof WeixinJSBridge == 'object' && typeof WeixinJSBridge.invoke == 'function') {
+          handleFontSize()
         } else {
           if (document.addEventListener) {
-            document.addEventListener(
-              "WeixinJSBridgeReady",
-              handleFontSize,
-              false
-            );
+            document.addEventListener('WeixinJSBridgeReady', handleFontSize, false)
           } else if (document.attachEvent) {
             //IE浏览器，非W3C规范
-            document.attachEvent("onWeixinJSBridgeReady", handleFontSize);
+            document.attachEvent('onWeixinJSBridgeReady', handleFontSize)
           }
         }
+
         function handleFontSize() {
           // 设置网页字体为默认大小
-          WeixinJSBridge.invoke("setFontSizeCallback", { fontSize: 0 });
+          WeixinJSBridge.invoke('setFontSizeCallback', {
+            fontSize: 0
+          })
           // 重写设置网页字体大小的事件
-          WeixinJSBridge.on("menu:setfont", function() {
-            WeixinJSBridge.invoke("setFontSizeCallback", { fontSize: 0 });
-          });
+          WeixinJSBridge.on('menu:setfont', function() {
+            WeixinJSBridge.invoke('setFontSizeCallback', {
+              fontSize: 0
+            })
+          })
         }
-      })();
+      })()
     </script>
   </body>
 </html>

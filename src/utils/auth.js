@@ -26,7 +26,7 @@ function getUserInfo() {
 function setUserInfo(info) {
   const origin = getUserInfo()
   let userInfo = info
-  origin ? userInfo = { ...origin, ...info } : ''
+  origin ? (userInfo = { ...origin, ...info }) : ''
   return sessionStorage.setItem(UserInfoKey, JSON.stringify(userInfo))
 }
 

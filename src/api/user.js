@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 /**
- * @desc 通过微信授权code换取accessToken
+ * @desc 微信授权code换取accessToken
  * @param
  */
 export function code2AccessToken(params) {
