@@ -12,3 +12,14 @@ export function code2AccessToken(params) {
   })
 }
 
+/**
+ * @desc 获取用户信息
+ * @param
+ */
+export function getUserInfo(params) {
+  return request({
+    url: '/api/wechat/oauth/get_user_info',
+    method: 'get',
+    params
+  })
+}

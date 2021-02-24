@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-content-max>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,12 +12,13 @@
     <script>
       // 动态设置meta viewport 解决1px问题
       (function() {
-        const docEl = document.documentElement
         const metaEl = document.querySelector('meta[name="viewport"]');
-        const dpr = window.devicePixelRatio || 1;
+        let dpr = window.devicePixelRatio || 1;
+        dpr = dpr > 3 ? 3 : dpr;
         const scale = 1 / dpr;
-        metaEl.setAttribute('content', 'width=' + dpr * docEl.clientWidth + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
+        metaEl.setAttribute('content', 'width=device-width' + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
       })();
+
 
       // 解决微信字体设置变大布局混乱
       (function() {

@@ -1,20 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app" class="no-vw">
 
     <keep-alive>
-      <router-view v-if="$route.meta.keepAlive && isRouterAlive" v-cloak style="overflow-x: hidden" />
+      <router-view v-if="$route.meta.keepAlive && isRouterAlive" />
     </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive && isRouterAlive" />
 
-    <router-view v-if="!$route.meta.keepAlive && isRouterAlive" v-cloak style="overflow-x: hidden" />
-
-    <!-- 遮罩层 -->
-    <globalMask />
+    <!-- 页面切换遮罩层 -->
+    <global-mask />
 
   </div>
 </template>
 <script>
-import globalMask from '@/components/globalMask'
-
+import GlobalMask from '@/components/GlobalMask'
 export default {
   name: 'App',
   provide() {
@@ -23,7 +21,7 @@ export default {
     }
   },
   components: {
-    globalMask
+    GlobalMask
   },
   data() {
     return {
@@ -37,37 +35,22 @@ export default {
       this.$nextTick(() => {
         this.isRouterAlive = true
       })
-    },
-    goPage(path) {
-      this.$router.push(path)
     }
   }
 }
 
 </script>
 <style lang="scss">
-
-body{
-    overflow: hidden;
-    -webkit-tap-highlight-color: rgba($color: #000000, $alpha: 0);
-    // ios使用-webkit-text-size-adjust禁止调整字体大小
-    -webkit-text-size-adjust: 100%!important;
-}
+  body{
+      -webkit-tap-highlight-color: rgba($color: #000000, $alpha: 0); // 点击高亮
+      -webkit-text-size-adjust: 100%!important; // ios使用-webkit-text-size-adjust 禁止调整字体大小
+  }
   html,
   body,
   #app {
     height: 100%;
     width: 100%;
-    // font-family: $base-font-family;
-    font-size: 24px;
-    color: #000000;
-    // 全局背景色
-    background-color: $color-bgc;
-    overflow-y: hidden;  // 超出隐藏掉 使用better-scroll
+    box-sizing: border-box;
+    overflow: auto;
   }
-</style>
-
-<style lang="scss">
-// 全局toast样式修改
-
 </style>

@@ -1,69 +1,92 @@
 <template>
   <div class="bs-wrap">
-    <!-- 雪碧图使用 ico ioc-名字 -->
-    <i class="city-img ico ico-icon1" />
-
-    <div class="box-test">
-      <span class="box1" />
-      <span class="box2" />
+    <div class="box-wrap">
+      <div class="box-text">vue-wx-h5-template</div>
+    </div>
+    <!-- 雪碧图的使用 ico ioc-名字 -->
+    <div class="icon-wrap">
+      <i class="ico ico-icon1" />
+      <i class="ico ico-icon2" />
+      <i class="ico ico-icon3" />
+      <i class="ico ico-icon4" />
+      <i class="ico ico-icon5" />
+    </div>
+    <div v-if="false" class="test" :dsafsdfdasfas="12" :dsafsdf123dasfas="12" :dsaf213sdfdasfas="12" :dsafsdfda213sfas="12" :dsafsdfdas1fas="12" :dsafsd2fdasfas="12" @click="go" :dsaf321sdfdasfas="12" :dsafsd1fdasfas="12" :dsafsdfda1sfas="12">
+      dasf
     </div>
   </div>
 </template>
-<script>
 
+<script>
 export default {
   name: 'Home',
-
   data() {
-    return {
-
-    }
+    return {}
   },
-  computed: {
-
-  },
+  computed: {},
   created() {
+    let a = 1
 
+    a += 1
+
+    const b = '123'
+
+    console.log(a + b)
   },
-  methods: {
-
-  }
-
+  methods: {}
 }
 </script>
+
 <style lang="scss" scoped>
-@import '@/assets/style/border.scss';
-
-  .bs-wrap{
-    height: 100%;
+.bs-wrap {
+  height: 100%;
+  width: 100%;
+  .box-wrap {
     width: 100%;
+    height: 200px;
+    border-bottom: 1px solid blue;
+    @include flexbox(
+      // justify-content
+      $jc: center,
+      // align-items
+      $ai: center,
+      // flex-direction
+      $fd: column
+    );
+    .box-text {
+      text-align: center;
+      font-size: 32px;
+      color: blue;
+    }
   }
-  .box-test{
+  .icon-wrap {
     width: 100%;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid red;
+    margin-top: 20px;
+    padding: 10px;
     box-sizing: border-box;
-    .box1{
-      width: 100%;
-      border-bottom: 1px solid red;
-    }
-    .box2{
-      width: 100px;
-      height: 100px;
-      margin-top: 20px;
-      // 边框
+    @include flexbox(
+      // justify-content
+      $jc: flex-start,
+      // align-items
+      $ai: flex-start,
+      // flex-direction
+      $fd: row,
+      // flex-wrap
+      $fw: wrap
+    );
+    .ico {
+      margin: 20px;
+      // 1px边框
       @include border(
-        $direction: (top, right, bottom, left),  // top - all - (top, right, bottom, left)
-        $size: 1px,  // 1px - (3px, 2px, 1px),
-        $color: blue,
+        // top - all - (top,right,bottom,left,)
+        $direction: (top, right, bottom, left),
+        //1px - (3px, 2px, 1px),
+        $size: 1px,
+        $color: #ccc,
         $style: solid,
-        $radius: 20px  // 20px - 50% - (10px, 20px, 30px, 40px)
+        //20px - 50% - (10px, 20px, 30px, 40px) $radius: 40px
       );
-
     }
   }
+}
 </style>

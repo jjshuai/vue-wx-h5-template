@@ -1,7 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin') // 打包前自动清除dist文件夹
 const TerserPlugin = require('terser-webpack-plugin') // 代码压缩 代替 UglifyJsPlugin(UglifyJsPlugin不支持es6)
 const CompressionPlugin = require('compression-webpack-plugin') // Gzip
-const SpritesmithPlugin = require('webpack-spritesmith') // 雪碧图(需使用一倍图)
+const SpritesmithPlugin = require('webpack-spritesmith') // 雪碧图(一倍图)
 
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
@@ -153,8 +153,8 @@ module.exports = {
       config.performance = {
         hints: 'warning',
         maxEntrypointSize: 50000000, // 入口起点的最大体积
-        maxAssetSize: 30000000,// 生成文件的最大体积
-        assetFilter: function(assetFilename) {// 只给出 js 文件的性能提示
+        maxAssetSize: 30000000, // 生成文件的最大体积
+        assetFilter: function(assetFilename) { // 只给出 js 文件的性能提示
           return assetFilename.endsWith('.js')
         }
       }
@@ -207,8 +207,8 @@ module.exports = {
         .use('sass-resources-loader')
         .loader('sass-resources-loader')
         .options({
-          // 要公用的scss文件的路径
-          resources: './src/assets/style/variable.scss'
+          // 全局scss文件  变量 - 混入
+          resources: ['./src/assets/style/variable.scss', './src/assets/style/mixin/index.scss', './src/assets/style/mixin/border.scss']
         })
         .end()
     })

@@ -6,12 +6,11 @@
   根据dpr动态设置meta的viewport
     ```js
       (function() {
-        // 根据dpr动态设置meta viewport
-        const docEl = document.documentElement
         const metaEl = document.querySelector('meta[name="viewport"]');
-        const dpr = window.devicePixelRatio || 1;
+        let dpr = window.devicePixelRatio || 1;
+        dpr = dpr > 3 ? 3 : dpr;
         const scale = 1 / dpr;
-        metaEl.setAttribute('content', 'width=' + dpr * docEl.clientWidth + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
+        metaEl.setAttribute('content', 'width=device-width' + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
       })();
     ```
   缺点
@@ -22,14 +21,21 @@
 
 + border.scss `https://github.com/imwtr/rem-vw-layout/blob/master/vw/scss/_border.scss`
   - 缺点
-    麻烦
+    麻烦,代码多,占用伪类
+
+##### vw适配支持最大最小宽度
+  vw适配无法设置最大最小宽度,如有该方面需求,可使用rem适配
+
+
+##### scss mixin
+
+vue.config配置全局引入
+
+##### sdn
 
 
 
 
-scss mixins
-
-sdn
 
 svg
 
