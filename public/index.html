@@ -11,6 +11,7 @@
     <div id="app"></div>
     <script>
       // 动态设置meta viewport 解决1px问题
+      // 可能会影响已有项目的布局: dpr>1时项目中的px会变化,比实际要小,如果项目中除了1px都转换为vw,则不影响
       ;(function() {
         const metaEl = document.querySelector('meta[name="viewport"]')
         let dpr = window.devicePixelRatio || 1

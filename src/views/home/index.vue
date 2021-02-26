@@ -4,16 +4,14 @@
       <div class="box-text">vue-wx-h5-template</div>
     </div>
     <!-- 雪碧图的使用 ico ioc-名字 -->
-    <div class="icon-wrap">
+    <div class="icon-wrap" v-if="true">
       <i class="ico ico-icon1" />
       <i class="ico ico-icon2" />
       <i class="ico ico-icon3" />
       <i class="ico ico-icon4" />
       <i class="ico ico-icon5" />
     </div>
-    <div v-if="false" class="test">
-      dasf
-    </div>
+    <div v-if="false" class="test">dasf</div>
   </div>
 </template>
 
