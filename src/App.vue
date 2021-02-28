@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="no-vw">
-
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive && isRouterAlive" />
     </keep-alive>
@@ -8,11 +7,10 @@
 
     <!-- 页面切换遮罩层 -->
     <global-mask />
-
   </div>
 </template>
 <script>
-import GlobalMask from '@/components/GlobalMask'
+import globalMask from '@/components/globalMask'
 export default {
   name: 'App',
   provide() {
@@ -21,7 +19,7 @@ export default {
     }
   },
   components: {
-    GlobalMask
+    globalMask
   },
   data() {
     return {

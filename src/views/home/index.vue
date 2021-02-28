@@ -4,7 +4,7 @@
       <div class="box-text">vue-wx-h5-template</div>
     </div>
     <!-- 雪碧图的使用 ico ioc-名字 -->
-    <div class="icon-wrap" v-if="true">
+    <div v-if="true" class="icon-wrap">
       <i class="ico ico-icon1" />
       <i class="ico ico-icon2" />
       <i class="ico ico-icon3" />
