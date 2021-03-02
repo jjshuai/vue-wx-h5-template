@@ -69,7 +69,8 @@ const SpritesmithTemplate = function(data) {
 // -----------雪碧图结束-------------------
 
 module.exports = {
-  publicPath: '/',
+  publicPath: '/', // 署应用包时的基本 URL。 history模式使用
+  // publicPath: './', // 署应用包时的基本 URL。hash 模式使用
   outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: !IS_PROD, // 生产环境的 source map 设置为false

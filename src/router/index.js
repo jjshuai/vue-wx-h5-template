@@ -43,6 +43,7 @@ export const routes = [
 const createRouter = () =>
   new Router({
     mode: 'history',
+    // base: '/',
     scrollBehavior: () => ({
       y: 0
     }),

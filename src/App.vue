@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import globalMask from '@/components/globalMask'
+import GlobalMask from '@/components/GlobalMask'
 export default {
   name: 'App',
   provide() {
@@ -19,7 +19,7 @@ export default {
     }
   },
   components: {
-    globalMask
+    GlobalMask
   },
   data() {
     return {
@@ -40,7 +40,7 @@ export default {
 <style lang="scss">
 body {
   -webkit-tap-highlight-color: rgba($color: #000000, $alpha: 0); // 点击高亮
-  -webkit-text-size-adjust: 100% !important; // ios使用-webkit-text-size-adjust 禁止调整字体大小
+  -webkit-text-size-adjust: 100% !important; // ios禁止调整字体大小
 }
 html,
 body,

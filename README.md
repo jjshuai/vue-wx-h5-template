@@ -19,15 +19,19 @@ yarn dev
 - [√ 全局过滤处理(token、授权等)](#gloabel)
 - [√ vw 适配方案(兼容 vant)](#vw)
 - [√ 1px 边框问题](#1px)
-
-- [√ ios 落地页问题](#ios)
-- [√ VantUI 组件按需加载](#vant)
 - [√ Sass 全局样式](#sass)
 - [√ Vuex 状态管理](#vuex)
 - [√ Vue-router](#router)
 - [√ Axios 封装及接口管理](#axios)
+
 - [√ Webpack 4 vue.config.js 基础配置](#base)
 - [√ Eslint+Pettier 统一开发规范 ](#pettier)
+
+svg
+
+cdn
+
+雪碧图
 
 ### <span id="env">✅ 配置多环境变量 </span>
 
@@ -128,16 +132,16 @@ module.exports = ({ file }) => {
 
 解决办法其实也一大把: `background-image` `border-image`等,综合对比下来这里提供两种解决方法
 
-&emsp;&emsp;一种为大名鼎鼎的`flexible`解决方案,即根据设备 drp 动态设置 viewport,缺点为要设置好没转为 vw 的 px 的值
+&emsp;&emsp;一种为大名鼎鼎的`flexible`解决方案,即根据设备 drp 动态设置 viewport,缺点为要设置好没转为 vw 的 px 的值,已有项目不好更改
 
-&emsp;&emsp;&emsp;&emsp;比如: `public/index.html `中有 dom 元素,且设置了`font-size`等 px 相关单位,那么当 dpr 不为 1 时,呈现的 px 大小 比 实际 书写 px
-要小,要做好适配处理,比如媒体查询 `@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2)`
+&emsp;&emsp;&emsp;&emsp;比如: 元素写了行内样式或者说`public/index.html`中有 dom 元素,且设置了`font-size`等 px 相关单位,那么当 dpr 不为 1 时,呈现的 px
+大小 比 实际 书写 px 要小,要做好适配处理,比如媒体查询 `@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2)`
 
 &emsp;&emsp;&emsp;&emsp;当然,如果项目中 px(大于 1px) 都转换为了 vw,可采用此方式来处理 1px 问题,直接书写即可`border: 1px solid #000;`
 
 ```js
 // public/index.html
-;(function () {
+;(function() {
   const metaEl = document.querySelector('meta[name="viewport"]')
   let dpr = window.devicePixelRatio || 1
   dpr = dpr > 3 ? 3 : dpr
@@ -149,11 +153,151 @@ module.exports = ({ file }) => {
 })()
 ```
 
-&emsp;&emsp;l 另一种为使用 transform 结合媒体查询进行动态缩放,好处就是**兼容性强,基本可适用任何情况**,缺点就是比较**麻烦**,参
+&emsp;&emsp;另一种为使用 transform 结合媒体查询进行动态缩放,好处就是**兼容性强,基本可适用任何情况**,缺点就是比较**麻烦**,参
 考[某大佬文章](https://www.cnblogs.com/imwtr/p/9648233.html#top),此项目已经完成 scss 版本的 1px 边框生成器 `src/assets/style/mixin/border.scss`,
 `@include border($direction: (top, right, bottom, left), $size: 1px,$color: #ccc,$style: solid,$radius: 40px);` 直接使用即可 。大树底下好乘凉,再次感
 谢[这位大佬](https://www.cnblogs.com/imwtr/p/9648233.html#top)
 
-以上两种方法,可根据自身项目情况食用
+以上两种方法,可根据自身项目情况使用,个人还是建议使用第二种
+
+[▲ 回顶部](#top)
+
+### <span id="sass">✅ Sass 全局样式 </span>
+
+- 全局 scss 样式
+
+`main.js`引入就可以了`import '@/assets/style/index.scss'`,使用直接给 dom 元素 添加相关 class
+
+- 全局 scss 变量/混合
+
+&emsp;&emsp;`vue.config.js` 配置使用 `sass-reaosuce-loader` 插件
+
+```javascript
+chainWebpack: config => {
+  // 配置scss全局变量
+  const oneOfsMap = config.module.rule('scss').oneOfs.store
+  oneOfsMap.forEach(item => {
+    item
+      .use('sass-resources-loader')
+      .loader('sass-resources-loader')
+      .options({
+        // 全局scss文件  变量 - 混入
+        resources: ['./src/assets/style/variable.scss', './src/assets/style/mixin/index.scss', './src/assets/style/mixin/border.scss']
+      })
+      .end()
+  })
+}
+```
+
+[▲ 回顶部](#top)
+
+### <span id="vuex">✅ Vuex 状态管理</span>
+
+目录结构
+
+```bash
+├── store
+│   ├── modules
+│   │   └── common.js
+│   │   └── system.js
+│   │   └── user.js
+│   │   └── wxSign.js
+│   ├── index.js
+│   ├── getters.js
+```
+
+`main.js` 引入
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import store from './store'
+new Vue({
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
+})
+```
+
+使用
+
+```html
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    computed: {
+      ...mapGetters(['userInfo'])
+    },
+
+    methods: {
+      // Action 通过 store.dispatch 方法触发
+      doDispatch() {
+        this.$store.dispatch('user/getUserInfo')
+      }
+    }
+  }
+</script>
+```
+
+[▲ 回顶部](#top)
+
+### <span id="router">✅ Vue-router </span>
+
+本案例采用 `history` 模式，开发者根据需求修改 `mode` `base`
+
+**注意**：如果你使用了 `history` 模式，`vue.config.js` 中的 `publicPath` 要做对应的**修改**
+
+```javascript
+import Vue from 'vue'
+import Router from 'vue-router'
+Vue.use(Router)
+import Home from '@/views/home'
+export const routes = [
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    meta: {
+      auth: false, // 需要登录
+      thirdAuth: 'base', // '': 无需鉴权 base: 静默授权 userinfo: 用户点击授权
+      wx: {
+        sign: true, // 是否需要微信验签
+        jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData', 'getLocation', 'openLocation']
+      },
+      keepAlive: false,
+      title: 'HOME'
+    }
+  }
+]
+const createRouter = () =>
+  new Router({
+    mode: 'history',
+    // base: '/',
+    scrollBehavior: () => ({
+      y: 0
+    }),
+    routes: routes
+  })
+const router = createRouter()
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+export default router
+```
+
+更多:[Vue Router](https://router.vuejs.org/zh/)
+
+[▲ 回顶部](#top)
+
+### <span id="axios">✅ Axios 封装及接口管理</span>
+
+`utils/request.js` 封装 axios ,开发者需要根据后台接口做修改。
+
+- `service.interceptors.request.use` 里可以设置请求头，比如设置 `token`
+- `service.interceptors.response.use` 里可以对接口返回数据处理，比如 401 删除本地信息，重新登录
+
+&emsp;&emsp; 详见`utils/request.js`
 
 [▲ 回顶部](#top)
