@@ -77,13 +77,14 @@ module.exports = {
   css: {
     extract: IS_PROD // 是否将组件中的 CSS 提取至一个独立的 CSS 文件中 (而不是动态注入到 JavaScript 中的 inline 代码)。
   },
+  lintOnSave: !IS_PROD, // 保存自动lint
   devServer: {
     disableHostCheck: !IS_PROD, // 解决本地ningx代理时报错 Invalid Host header
     port: port,
-    open: true,
+    open: true, // 启动打开浏览器
     hotOnly: true, // 热更新
     overlay: {
-      // 关闭eslint检查报错
+      // eslint检查报错
       warnings: false,
       errors: false
     }
@@ -99,7 +100,6 @@ module.exports = {
     //   }
     // }
   },
-  lintOnSave: !IS_PROD, // 保存自动lint
 
   configureWebpack: config => {
     const plugins = [

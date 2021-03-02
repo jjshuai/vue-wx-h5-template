@@ -11,8 +11,8 @@
       <i class="ico ico-icon4" />
       <i class="ico ico-icon5" />
     </div>
-    <div v-if="false" class="test">dasf</div>
-    <div class="test" v-html="test" />
+    <div v-if="false" id="rest" class="test">dasf</div>
+
   </div>
 </template>
 
