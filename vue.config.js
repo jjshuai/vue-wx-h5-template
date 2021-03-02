@@ -74,9 +74,8 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: !IS_PROD, // 生产环境的 source map 设置为false
-  // 拆分css
   css: {
-    extract: IS_PROD
+    extract: IS_PROD // 是否将组件中的 CSS 提取至一个独立的 CSS 文件中 (而不是动态注入到 JavaScript 中的 inline 代码)。
   },
   devServer: {
     disableHostCheck: !IS_PROD, // 解决本地ningx代理时报错 Invalid Host header
@@ -88,6 +87,17 @@ module.exports = {
       warnings: false,
       errors: false
     }
+    // proxy: {
+    //   // 配置跨域
+    //   '/api': {
+    //     target: 'https://test.xxx.com', // 接口的域名
+    //     // ws: true, // 是否启用websockets
+    //     changOrigin: true, // 开启代理，在本地创建一个虚拟服务端
+    //     pathRewrite: {
+    //       '^/api': '/'
+    //     }
+    //   }
+    // }
   },
   lintOnSave: !IS_PROD, // 保存自动lint
 
