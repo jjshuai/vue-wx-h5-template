@@ -5,10 +5,10 @@ import { wxSign } from '@/api/wx'
 const agent = navigator.userAgent
 const isiOS = !!agent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios手机
 const wxSignParams = {
-  signUrl: store.getters.originUrl,
-  timestamp: null,
-  nonceStr: null,
-  signature: null,
+  signUrl: '',
+  timestamp: '',
+  nonceStr: '',
+  signature: '',
   errorCount: 3 // 错误尝试次数
 }
 
@@ -17,7 +17,7 @@ const wxSignParams = {
  * @param {*} params
  */
 function init(params) {
-  wxSignParams.signUrl = isiOS ? store.getters.originUrl : window.location.href // ios手机不一样
+  wxSignParams.signUrl = isiOS ? window.location.href : window.location.href //
   if (store.getters.thirdType === 'wx') {
     // 获取验签参数
     return wxSign({
@@ -90,7 +90,6 @@ function pay(params) {
  */
 function share(params) {
   wx.ready(() => {
-    // store.dispatch('setSignInfo', wxSignParams.timestamp, wxSignParams.nonceStr, wxSignParams.signature)
     wx.updateAppMessageShareData({
       title: params.title, // 分享标题
       desc: params.desc, // 分享描述
@@ -162,14 +161,9 @@ function openLocation(params) {
 }
 
 export default {
-  // 初始化
   init,
-  // 微信支付
   pay,
-  // 微信分享
   share,
-  // 获取地理位置
   getLocation,
-  // 微信内置地图查看位置接口
   openLocation
 }

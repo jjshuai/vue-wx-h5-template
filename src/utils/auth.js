@@ -11,7 +11,7 @@ function getToken() {
 }
 
 function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  return Cookies.set(TokenKey, token, { expires: 30 })
 }
 
 function removeToken() {

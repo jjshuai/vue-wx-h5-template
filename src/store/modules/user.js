@@ -1,5 +1,5 @@
 import { getUserInfo } from '@/api/user'
-import authUtils from '@/utils/auth.js' // getToken, setToken, removeToken...
+import authUtils from '@/utils/auth.js'
 const getDefaultState = () => {
   return {
     token: authUtils.getToken(), // cookie持久化

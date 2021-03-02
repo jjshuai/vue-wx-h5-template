@@ -3,30 +3,27 @@ import store from '../store'
 import authUtils from '@/utils/auth'
 import systemUtils from '@/utils/system'
 /**
- * @desc 有无token 有无用户信息；拉起授权判断
+ * @desc token 用户信息；拉起授权判断
  *
  */
 function doFilter() {
   router.beforeEach((to, from, next) => {
-    const thirdType = store.getters.thirdType // 第三方类型 wx ali
+    const thirdType = store.getters.thirdType // 第三方类型环境 wx ali
     const third_redirect_code = systemUtils.getUrlParams().code || systemUtils.getUrlParams().auth_code // 第三方授权时页面带的code码
-    const old_third_redirect_code = store.state.user.wxCode // 第三方授权时页面带的code码 上一次授权的code
+    const old_third_redirect_code = store.state.user.wxCode // 第三方授权时页面带的code码 (上一次)
     const hasToken = authUtils.getToken() // token
     const hasUserInfo = authUtils.getUserInfo() // 用户信息
 
-    // 1. 无需登录
     if (!to.meta.auth) {
       return next()
     }
 
-    // 2.1 第三方环境 wx/ali
+    //  第三方环境处理 wx/ali
     if (thirdType && to.meta.thirdAuth) {
       if (hasToken) {
         if (hasUserInfo) {
-          // 存在用户信息
           return next()
         } else {
-          // 无用户信息 -> 获取
           store
             .dispatch('user/getUserInfo')
             .then(() => {
@@ -47,13 +44,11 @@ function doFilter() {
         window.location.href = redirect_url
       }
     } else if (!thirdType) {
-      // 2.2 浏览器环境
+      //  浏览器环境处理
       if (hasToken) {
         if (hasUserInfo) {
-          // 存在用户信息
           return next()
         } else {
-          // 无用户信息 -> 获取
           store
             .dispatch('user/getUserInfo')
             .then(() => {
