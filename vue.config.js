@@ -8,44 +8,9 @@ const resolve = dir => path.join(__dirname, dir)
 const IS_PROD = ['production'].includes(process.env.NODE_ENV)
 const port = process.env.port || 8086 // 端口
 
-// ----------雪碧图开始--------------------
-const fs = require('fs')
-let has_sprite = true
-let files = []
-const icons = {}
-
-try {
-  fs.statSync(resolve('./src/assets/icon'))
-  files = fs.readdirSync(resolve('./src/assets/icon'))
-  files.forEach(item => {
-    const filename = item.toLocaleLowerCase().replace(/_/g, '-')
-    icons[filename] = true
-  })
-} catch (error) {
-  fs.mkdirSync(resolve('./src/assets/icon'))
-}
-
-if (!files.length) {
-  has_sprite = false
-} else {
-  try {
-    let iconsObj = fs.readFileSync(resolve('./icons.json'), 'utf8')
-    iconsObj = JSON.parse(iconsObj)
-    has_sprite = files.some(item => {
-      const filename = item.toLocaleLowerCase().replace(/_/g, '-')
-      return !iconsObj[filename]
-    })
-    if (has_sprite) {
-      fs.writeFileSync(resolve('./icons.json'), JSON.stringify(icons, null, 2))
-    }
-  } catch (error) {
-    fs.writeFileSync(resolve('./icons.json'), JSON.stringify(icons, null, 2))
-    has_sprite = true
-  }
-}
-// 雪碧图样式处理模板
+// ------雪碧图样式处理模板开始------
 const SpritesmithTemplate = function(data) {
-  // pc
+  //  background-size为生成雪碧图的大小
   const icons = {}
   let tpl = `.ico {
   display: inline-block;
@@ -54,8 +19,10 @@ const SpritesmithTemplate = function(data) {
 }`
 
   data.sprites.forEach(sprite => {
+    console.log('sprite==>', sprite)
     const name = '' + sprite.name.toLocaleLowerCase().replace(/_/g, '-')
     icons[`${name}.png`] = true
+    // width/height 设置为图片的原始宽高
     tpl = `${tpl}
 .ico-${name}{
   width: ${sprite.width}px;
@@ -66,7 +33,7 @@ const SpritesmithTemplate = function(data) {
   })
   return tpl
 }
-// -----------雪碧图结束-------------------
+// -----------雪碧图样式处理模板结束-------------------
 
 module.exports = {
   publicPath: '/', // 署应用包时的基本 URL。 history模式使用
@@ -171,40 +138,37 @@ module.exports = {
         }
       }
     }
-    // --- 雪碧图开始---
-    if (has_sprite) {
-      // 生成雪碧图
-      plugins.push(
-        new SpritesmithPlugin({
-          src: {
-            cwd: path.resolve(__dirname, './src/assets/icon/'), // 图标根路径
-            glob: '**/*.png' // 匹配任意 png 图标
-          },
-          target: {
-            image: path.resolve(__dirname, './src/assets/image/sprites.png'), // 生成雪碧图目标路径与名称
-            // 设置生成CSS背景及其定位的文件或方式
-            css: [
-              [
-                path.resolve(__dirname, './src/assets/style/sprites.scss'),
-                {
-                  format: 'function_based_template'
-                }
-              ]
+    // --- 生成雪碧图开始---
+    plugins.push(
+      new SpritesmithPlugin({
+        src: {
+          cwd: path.resolve(__dirname, './src/assets/icon/'), // 图标根路径
+          glob: '**/*.png' // 匹配任意 png 图标
+        },
+        target: {
+          image: path.resolve(__dirname, './src/assets/image/sprites.png'), // 生成雪碧图目标路径与名称
+          // 设置生成CSS背景及其定位的文件或方式
+          css: [
+            [
+              path.resolve(__dirname, './src/assets/style/sprites.scss'),
+              {
+                format: 'function_based_template'
+              }
             ]
-          },
-          customTemplates: {
-            function_based_template: SpritesmithTemplate
-          },
-          apiOptions: {
-            cssImageRef: '../image/sprites.png' // css文件中引用雪碧图的相对位置路径配置
-          },
-          spritesmithOptions: {
-            padding: 2
-          }
-        })
-      )
-    }
-    // --- 雪碧图结束---
+          ]
+        },
+        customTemplates: {
+          function_based_template: SpritesmithTemplate
+        },
+        apiOptions: {
+          cssImageRef: '../image/sprites.png' // css文件中引用雪碧图的相对位置路径配置
+        },
+        spritesmithOptions: {
+          padding: 2
+        }
+      })
+    )
+    // --- 生成雪碧图结束---
 
     config.plugins = [...config.plugins, ...plugins]
   },

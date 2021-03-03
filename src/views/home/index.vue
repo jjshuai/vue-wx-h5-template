@@ -93,6 +93,7 @@ export default {
         $style: solid,
         //20px - 50% - (10px, 20px, 30px, 40px) $radius: 40px
       );
+      transform: scale(0.5);
     }
   }
 }
