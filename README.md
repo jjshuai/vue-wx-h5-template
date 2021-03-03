@@ -345,7 +345,7 @@ export default router
 
 Vscode setting.json 设置
 
-```json
+```js
 // 安装 eslint prettier vetur 插件 .vue 文件使用 vetur 进行格式化，其他使用prettier
 {
   "window.zoomLevel": 0,
@@ -480,3 +480,9 @@ Vscode setting.json 设置
 有一点要注意的是,如果你用的是二倍图或更高倍图,ico 要使用`transform: scale(0.5);`缩放
 
 [▲ 回顶部](#top)
+
+### 鸣谢
+
+[vue-cli4-config](https://github.com/staven630/vue-cli4-config)
+
+[vue-h5-template](https://github.com/sunniejs/vue-h5-template)
