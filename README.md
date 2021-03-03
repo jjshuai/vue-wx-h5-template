@@ -25,7 +25,7 @@ yarn dev
 - [√ Axios 封装及接口管理](#axios)
 - [√ Webpack 4 vue.config.js 配置](#config)
 - [√ Eslint+Pettier 统一开发规范 ](#pettier)
-- [√ icon 打包为雪碧图 ](#sprite)
+- [√ png 格式 icon 打包为雪碧图 ](#sprite)
 
 ### <span id="env">✅ 配置多环境变量 </span>
 
@@ -469,7 +469,7 @@ Vscode setting.json 设置
 
 [▲ 回顶部](#top)
 
-### <span id="sprite">✅ icon 打包为雪碧图</span>
+### <span id="sprite">✅ png 格式 icon 打包为雪碧图</span>
 
 如果你项目的采用 `.png` 格式的图片实现 icon,你可能需要这个,自动打包雪碧图的插件 `webpack-spritesmith`
 
@@ -477,7 +477,12 @@ Vscode setting.json 设置
 
 使用的话 `ico ioc-名字`,如`<i class="ico ico-icon1" />`
 
-有一点要注意的是,如果你用的是二倍图或更高倍图,ico 要使用`transform: scale(0.5);`缩放
+有一点要注意的是,如果你用的是二倍图或更高倍图,可以使用 css3 的 transform 解决
+
+```css
+transform: scale(0.5);
+transform-origin: top left;
+```
 
 [▲ 回顶部](#top)
 
