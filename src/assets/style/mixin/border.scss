@@ -2,11 +2,11 @@
 
 /** 如何使用
 @include border(
-  $direction: (top, right, bottom, left),  //值:  top - all - (top, right, bottom, left)
-  $size: 1px,  //值:   1px - (3px, 2px, 1px),
+  $direction: (top, right, bottom, left),  // 值:  top - all - (top, right, bottom, left)
+  $size: 1px,  // 值:   1px - (3px, 2px, 1px,1px),
   $color: red,
   $style: solid,
-  $radius: 20px  //值:   20px - 50% - (10px, 20px, 30px, 40px)
+  $radius: 20px  // 值:   20px - 50% - (10px, 20px, 30px, 40px)
 );
 */
 

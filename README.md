@@ -488,6 +488,8 @@ transform-origin: top left;
 
 ### 鸣谢
 
+[rem-vw-layout](https://github.com/imwtr/rem-vw-layout)
+
 [vue-cli4-config](https://github.com/staven630/vue-cli4-config)
 
 [vue-h5-template](https://github.com/sunniejs/vue-h5-template)

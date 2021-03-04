@@ -6,11 +6,6 @@ import Home from '@/views/home'
 export const routes = [
   {
     path: '/',
-    redirect: '/home'
-  },
-
-  {
-    path: '/home',
     name: 'Home',
     component: Home,
     meta: {
@@ -21,12 +16,28 @@ export const routes = [
         jsApiList: [
           'updateAppMessageShareData', // 分享朋友
           'updateTimelineShareData', // 分享朋友圈
-          'getLocation',
-          'openLocation'
+          'getLocation', // 定位
+          'openLocation' // 打开地图
         ]
       },
       keepAlive: false,
       title: 'HOME'
+    }
+  },
+
+  {
+    path: '/sign_in',
+    name: 'Home',
+    component: () => import('@/views/signIn/index'),
+    meta: {
+      auth: false,
+      thirdAuth: '',
+      wx: {
+        sign: true,
+        jsApiList: ['getLocation']
+      },
+      keepAlive: false,
+      title: '登录'
     }
   },
 
