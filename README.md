@@ -25,6 +25,7 @@ yarn dev
 - [√ Axios 封装及接口管理](#axios)
 - [√ Webpack 4 vue.config.js 配置](#config)
 - [√ Eslint+Pettier 统一开发规范 ](#pettier)
+- [√ 使用 svg-icon 组件 ](#svg)
 - [√ png 格式 icon 打包为雪碧图 ](#sprite)
 
 ### <span id="env">✅ 配置多环境变量 </span>
@@ -469,9 +470,95 @@ Vscode setting.json 设置
 
 [▲ 回顶部](#top)
 
+### <span id="svg">✅ 使用 svg-icon 组件</span>
+
+安装插件`yarn add svg-sprite-loader -D`
+
+创建 `GlobalSvgIcon` 组件
+
+```vue
+<template>
+  <svg class="svg-icon" aria-hidden="true">
+    <use :xlink:href="iconName" />
+  </svg>
+</template>
+
+<script>
+export default {
+  name: 'SvgIcon',
+  props: {
+    iconClass: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    iconName() {
+      return `#icon-${this.iconClass}`
+    }
+  }
+}
+</script>
+
+<style scoped>
+.svg-icon {
+  /* 注意: 要改变icon的大小，直接修改icon的font-size值即可 */
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+</style>
+```
+
+在 `src/assets/icon` 文件夹中创建 svg 文件夹（用来存放 svg 文件）与 index.js 文件
+
+```js
+import GlobalSvgIcon from '@/components/GlobalSvgIcon.vue'
+import Vue from 'vue'
+// 注册到全局
+Vue.component('svg-icon', GlobalSvgIcon)
+const requireAll = requireContext => requireContext.keys().map(requireContext)
+const req = require.context('./', false, /\.svg$/)
+//这行代码就会去 该 文件夹（不包含子目录）下找所有文件名以 .svg 结尾的文件能被 require 的文件。
+// 我们通过正则匹配引入相应的文件模块。
+// require.context有三个参数：
+//    directory：说明需要检索的目录
+//    useSubdirectories：是否检索子目录
+//    regExp: 匹配文件的正则表达式
+requireAll(req)
+```
+
+在 `main.js` 中导入 `import './assets/icon/svg/index'`
+
+修改 `vue.config.js` 配置
+
+```js
+chainWebpack: config => {
+  // ...
+  config.module
+    .rule('svg')
+    .exclude.add(resolve('src/assets/icon/svg'))
+    .end()
+  config.module
+    .rule('svg-sprite-loader')
+    .test(/\.svg$/)
+    .include.add(resolve('./src/assets/icon/svg')) // 处理svg目录
+    .end()
+    .use('svg-sprite-loader')
+    .loader('svg-sprite-loader')
+    .options({
+      symbolId: 'icon-[name]'
+    })
+}
+```
+
+[▲ 回顶部](#top)
+
 ### <span id="sprite">✅ png 格式 icon 打包为雪碧图</span>
 
-如果你项目的采用 `.png` 格式的图片实现 icon,你可能需要这个,自动打包雪碧图的插件 `webpack-spritesmith`
+如果你项目的采用 `.png` 格式的图片实现 icon,你可能需要自动打包雪碧图的插件 `webpack-spritesmith`
 
 怎么配置这里也不再说了,详见`vue.config.js`,都标了出来
 

@@ -19,7 +19,6 @@ const SpritesmithTemplate = function(data) {
 }`
 
   data.sprites.forEach(sprite => {
-    console.log('sprite==>', sprite)
     const name = '' + sprite.name.toLocaleLowerCase().replace(/_/g, '-')
     icons[`${name}.png`] = true
     // width/height 设置为图片的原始宽高
@@ -174,6 +173,23 @@ module.exports = {
   },
 
   chainWebpack: config => {
+    // --- svg-sprite-loader 开始---
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/assets/icon/svg'))
+      .end()
+    config.module
+      .rule('svg-sprite-loader')
+      .test(/\.svg$/)
+      .include.add(resolve('./src/assets/icon/svg')) // 处理svg目录
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+    // --- svg-sprite-loader 结束---
+
     // ES6转ES5
     config.entry.app = ['babel-polyfill', './src/main.js']
     // 配置scss全局变量

@@ -14,6 +14,7 @@ if (process.env.VUE_APP_USE_VCONSOLE === 'true') {
   const vconsole = new vConsole()
 }
 
+import './assets/icon/svg/index' // svg-iocn
 // eslint-disable-next-line
 import directive from './directive' // 全局自定义指令
 // eslint-disable-next-line
